@@ -25,6 +25,7 @@
 		EF66B9DE18F32C9000CEBCF0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF66B9B918F32C9000CEBCF0 /* CoreData.framework */; };
 		EF66B9E618F32C9000CEBCF0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EF66B9E418F32C9000CEBCF0 /* InfoPlist.strings */; };
 		EF66B9E818F32C9000CEBCF0 /* Quiz7Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF66B9E718F32C9000CEBCF0 /* Quiz7Tests.m */; };
+		EF66B9F318F32CF500CEBCF0 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = EF66B9F218F32CF500CEBCF0 /* Task.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		EF66B9E318F32C9000CEBCF0 /* Quiz7Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Quiz7Tests-Info.plist"; sourceTree = "<group>"; };
 		EF66B9E518F32C9000CEBCF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EF66B9E718F32C9000CEBCF0 /* Quiz7Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Quiz7Tests.m; sourceTree = "<group>"; };
+		EF66B9F118F32CF500CEBCF0 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		EF66B9F218F32CF500CEBCF0 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				EF66B9D118F32C9000CEBCF0 /* Quiz7DetailViewController.m */,
 				EF66B9D318F32C9000CEBCF0 /* Images.xcassets */,
 				EF66B9CA18F32C9000CEBCF0 /* Quiz7.xcdatamodeld */,
+				EF66B9F118F32CF500CEBCF0 /* Task.h */,
+				EF66B9F218F32CF500CEBCF0 /* Task.m */,
 				EF66B9BC18F32C9000CEBCF0 /* Supporting Files */,
 			);
 			path = Quiz7;
@@ -268,6 +273,7 @@
 				EF66B9CC18F32C9000CEBCF0 /* Quiz7.xcdatamodeld in Sources */,
 				EF66B9CF18F32C9000CEBCF0 /* Quiz7MasterViewController.m in Sources */,
 				EF66B9C218F32C9000CEBCF0 /* main.m in Sources */,
+				EF66B9F318F32CF500CEBCF0 /* Task.m in Sources */,
 				EF66B9C618F32C9000CEBCF0 /* Quiz7AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

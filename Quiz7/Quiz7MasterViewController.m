@@ -9,6 +9,7 @@
 #import "Quiz7MasterViewController.h"
 
 #import "Quiz7DetailViewController.h"
+#import "Task.h"
 
 @interface Quiz7MasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -45,7 +46,11 @@
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    //[newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    Task *newTask = (Task *)newManagedObject;
+    newTask.dueDate = [NSDate date];
+    newTask.name = @"New Task";
+    newTask.urgency = @5;
     
     // Save the context.
     NSError *error = nil;
@@ -124,14 +129,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -213,10 +218,47 @@
 }
  */
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Task *task = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    Quiz7DetailViewController *dvc = [storyboard instantiateViewControllerWithIdentifier:@"Quiz7DetailViewController"];
+    [dvc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    dvc.detailItem = task;
+    dvc.dismissBlock = ^{
+        [[self tableView] reloadData];
+        
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        
+        // Save the context.
+        NSError *error = nil;
+        if (![context save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    };
+    [self presentViewController:dvc animated:YES completion:nil];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    return NO;
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+//    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    Task *theTask = (Task *)object;
+    cell.textLabel.text = theTask.name;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
+    NSString *dateString = [formatter stringFromDate:theTask.dueDate];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%.0f)", dateString,
+                                 [theTask.urgency floatValue]];
 }
 
 @end
